@@ -7,7 +7,11 @@ service MaxNumber {
 }
 
 message FindMaxNumberRequest {
-    int32 number = 1;
+    // int32 number = 1;
+    PublicKey public_key = 2;
+    PrivateKey private_key = 3;
+    bytes cipher_text = 4;
+    bytes signature = 5;
 }
 
 message FindMaxNumberResponse {
@@ -18,28 +22,12 @@ message FindMaxNumberResponse {
 // The server saves the current high data obviously
 // proto file should have big.Int to create message for pivate key and public key
 
-message Word {
-    uint64 word = 1;
-}
-
-message Nat {
-    repeated uint64 words = 1;
-}
-
-message Int {
-    bool neg = 1; // sign
-    Nat  abs = 2; // absolute value of the integer
-}
-
 message PublicKey {
-    Int N = 1; // modulus
-    int64 E = 2; // public exponent
+    bytes public_key = 1;
 }
 
 message PrivateKey {
-    PublicKey publicKey = 1;
-    &Int D = 2;
-
+    bytes private_key = 1;
 }
 
 
