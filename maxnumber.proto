@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package maxnumber;
+
+service MaxNumber {
+    rpc FindMaxNumber(stream FindMaxNumberRequest) returns (stream FindMaxNumberResponse) {}
+}
+
+message FindMaxNumberRequest {
+    int32 number = 1;
+}
+
+message FindMaxNumberResponse {
+    int32 max_number = 1;
+}
+// The client will send signature, the data(number), his public key and his private key
+// The server will verify the signature and decode the data
+// The server saves the current high data obviously
+// proto file should have big.Int to create message for pivate key and public key
+
+message Word {
+    uint64 word = 1;
+}
+
+message Nat {
+    repeated uint64 words = 1;
+}
+
+message Int {
+    bool neg = 1; // sign
+    Nat  abs = 2; // absolute value of the integer
+}
+
+message PublicKey {
+    Int N = 1; // modulus
+    int64 E = 2; // public exponent
+}
+
+message PrivateKey {
+    PublicKey publicKey = 1;
+    &Int D = 2;
+
+}
+
+
+// Questions
+
+// Does the client really need his private key? Or just his public key?
+// Yes
+
+// Client side ------------>
+// For signature -> Required -> Private key and message
+// For cipherText -> Required -> Public key and message
+
+// <-----------Server side 
+// To decrypt -> cipherText and private key
+// to verify signature -> plain text, signature, public key
+
+// Search for private key public key rsa gRPC protocol buffer 
