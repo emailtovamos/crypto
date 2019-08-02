@@ -8,8 +8,8 @@ service MaxNumber {
 
 message FindMaxNumberRequest {
     // int32 number = 1;
-    PublicKey public_key = 2;
-    PrivateKey private_key = 3;
+    bytes public_key = 2;
+    bytes private_key = 3;
     bytes cipher_text = 4;
     bytes signature = 5;
 }
@@ -21,14 +21,6 @@ message FindMaxNumberResponse {
 // The server will verify the signature and decode the data
 // The server saves the current high data obviously
 // proto file should have big.Int to create message for pivate key and public key
-
-message PublicKey {
-    bytes public_key = 1;
-}
-
-message PrivateKey {
-    bytes private_key = 1;
-}
 
 
 // Questions
@@ -45,3 +37,4 @@ message PrivateKey {
 // to verify signature -> plain text, signature, public key
 
 // Search for private key public key rsa gRPC protocol buffer 
+// How to proto marshal private key????????????
