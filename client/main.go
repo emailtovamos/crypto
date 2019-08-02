@@ -1,23 +1,19 @@
 package main
 
 import (
+	"context"
 	"crypto"
 	"crypto/rand"
 	"crypto/rsa"
 	"crypto/sha256"
 	"crypto/x509"
-	// "encoding/binary"
 	"encoding/pem"
-	// "flag"
-	"context"
 	"flag"
 	"fmt"
 	pb "github.com/emailtovamos/crypto"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"io"
-	// "math"
-	// "net"
 	"os"
 	"strconv"
 	"time"
@@ -29,7 +25,6 @@ var (
 
 func main() {
 	flag.Parse()
-	// var opts []grpc.DialOption
 	conn, err := grpc.Dial(*serverAddr, grpc.WithInsecure())
 	if err != nil {
 		log.Fatal().Msgf("fail to dial: %v", err)
@@ -103,8 +98,6 @@ func getSignatureWithPrivKey(message string, key *rsa.PrivateKey) []byte {
 //encrypter
 func getCypherTextWithPubKey(msg string, key *rsa.PublicKey) []byte {
 	message := []byte(msg)
-	// log.Info().Msgf("message %v", message)
-	// log.Info().Msgf("msg %v", msg)
 	label := []byte("")
 	hash := sha256.New()
 	ciphertext, err := rsa.EncryptOAEP(
@@ -151,13 +144,10 @@ func runMaxNumber(client pb.MaxNumberClient) {
 	}()
 	for _, number := range numbers {
 		// Convert number to string
-		// numberString := fmt.Sprintf("%s", number)
-		// numberString := string(number)
 		numberString := strconv.Itoa(int(number))
 		// Create Signature & cipherText
 		signature := getSignatureWithPrivKey(numberString, privateKey)
 		cipherText := getCypherTextWithPubKey(numberString, publicKey)
-		// log.Info().Msgf("cipherText %v \n", cipherText)
 		// Create message to send
 		request := &pb.FindMaxNumberRequest{
 			PublicKey:  publicKeyBytes,
@@ -171,5 +161,4 @@ func runMaxNumber(client pb.MaxNumberClient) {
 	}
 	stream.CloseSend()
 	<-waitc
-
 }

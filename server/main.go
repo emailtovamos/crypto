@@ -69,7 +69,6 @@ func (m *MaxNumber) FindMaxNumber(stream pb.MaxNumber_FindMaxNumberServer) error
 		log.Info().Msgf("number  %s \n", s)
 
 		// Get the number
-		// number := bytesToInt32(plainText)
 		number := int32(byteToInt)
 		// Do the algorithm to check
 		numberToReturn := maxNumber(number)
@@ -81,7 +80,6 @@ func (m *MaxNumber) FindMaxNumber(stream pb.MaxNumber_FindMaxNumberServer) error
 		} else {
 			response := &pb.FindMaxNumberResponse{
 				MaxNumber: numberToReturn,
-				// MaxNumber: 5.0,
 			}
 			if err := stream.Send(response); err != nil {
 				return err
@@ -170,7 +168,6 @@ func verifySignatureWithPublicKey(message string, signature []byte, key *rsa.Pub
 	if err != nil {
 		fmt.Println("Who are U? Verify Signature failed")
 		return err
-		// os.Exit(1)
 	} else {
 		fmt.Println("Verify Signature successful")
 		return nil
@@ -192,12 +189,6 @@ func getPlainTextWithPrivateKey(ciphertext []byte, key *rsa.PrivateKey) []byte {
 		os.Exit(1)
 	}
 	return plainText
-}
-
-func bytesToInt32(b []byte) int32 {
-	bits := binary.BigEndian.Uint32(b)
-	// f64 := math.Float64frombits(bits)
-	return int32(bits)
 }
 
 func maxNumber(number int32) int32 {
