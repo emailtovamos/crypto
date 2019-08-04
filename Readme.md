@@ -6,7 +6,9 @@ Execute the following commands:
 
   `go run server/main.go`
 
-  `go run client/main.go`
+  `go run client/main.go` 
+  
+  Here the client sends stream of numbers 1 5 3 6 2 20 to get max number
 
 You will see responses of 1 5 6 20 
 
