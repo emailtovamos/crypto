@@ -48,12 +48,8 @@ func (m *MaxNumber) FindMaxNumber(stream pb.MaxNumber_FindMaxNumberServer) error
 			return err
 		}
 		log.Info().Msg("signature verified")
-		numberString := fmt.Sprintf("%s", plainText)
 
-		log.Info().Msgf("numberString %v", numberString)
-		log.Info().Msg(string(plainText))
 		byteToInt, _ := strconv.Atoi(string(plainText))
-		fmt.Println(byteToInt)
 
 		// Get the number
 		number := int32(byteToInt)
@@ -63,7 +59,7 @@ func (m *MaxNumber) FindMaxNumber(stream pb.MaxNumber_FindMaxNumberServer) error
 
 		// stream send back
 		if numberToReturn != number {
-			// don't return anything
+			// don't return anything, continue
 		} else {
 			response := &pb.FindMaxNumberResponse{
 				MaxNumber: numberToReturn,
@@ -74,7 +70,6 @@ func (m *MaxNumber) FindMaxNumber(stream pb.MaxNumber_FindMaxNumberServer) error
 		}
 
 	}
-	return nil
 }
 
 // BytesToPrivateKey bytes to private key
