@@ -22,6 +22,7 @@ You will see responses of 1 5 6 20
 6. Server accepts the stream and verifies using the signature
 7. Only if it is verified, then the server converts and does processing on the input number to find out maximum so far
 8. Then it returns the max number using a stream over gRPC 
+9. Run `go test ./...` to run the tests
 
 
 
